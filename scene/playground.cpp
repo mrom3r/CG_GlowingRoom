@@ -121,6 +121,7 @@ bool initializeWindow() {
         return false;
     }
     glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // Initialize GLEW
     glewExperimental = true; // Needed for core profile
@@ -137,6 +138,27 @@ bool initializeWindow() {
     // background color
     glClearColor(0.0, 0.0, 0.3, 1.0);
     return true;
+}
+
+void framebuffer_size_callback(GLFWwindow *, int width, int height) {
+    // keep display dimension 16:9
+    int game_width;
+    int game_height;
+    int half_gap_x{};
+    int half_gap_y{};
+    if (width > height) {
+        // width larger
+        game_width = {static_cast<int>(static_cast<float>(height) * (16.0f / 9.0f))};
+        game_height = {height};
+        half_gap_x = {(width - game_width) / 2};
+    } else {
+        // height larger
+        game_width = {width};
+        game_height = {static_cast<int>(static_cast<float>(width) * (9.0f / 16.0f))};
+        half_gap_y = {(height - game_height) / 2};
+    }
+
+    glViewport(half_gap_x, half_gap_y, game_width, game_height);
 }
 
 

@@ -6,6 +6,7 @@
 #include <vector>
 #include <common/texture.hpp>
 #include "RenderingManager.hpp"
+#include "glfw3.h"
 #include <common/objloader.hpp>
 
 // shader id
@@ -41,6 +42,7 @@ float rotationZ{};
 int main(); //<<< main function, called at startup
 void updateAnimationLoop(); //<<< updates the animation loop
 bool initializeWindow(); //<<< initializes the window using GLFW and GLEW
+void framebuffer_size_callback(GLFWwindow *, int width, int height); // callback for resizing window
 bool updateMVPTransformation(); //<<< updates the MVP transform with the current pose
 bool initializeVertexBuffer(); //<<< initializes the vertex buffer array and binds it OpenGL
 bool cleanupVertexBuffer(); //<<< frees all recources from the vertex buffer
